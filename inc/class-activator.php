@@ -19,8 +19,17 @@ class Katalyst_Video_Plus_Activator {
 	 */
 	public static function activate() {
 		
+		set_transient( '_kvp_about_screen', true, 30 );
 		kvp_purge_cron();
+
+		require_once plugin_dir_path( __FILE__ ) . 'class-post-types.php';
 		
+		$katalyst_video_plus_post_types = new Katalyst_Video_Plus_Post_Types( 'Katalyst Video Plus', null );
+		$katalyst_video_plus_post_types->register_video();
+		$katalyst_video_plus_post_types->register_taxonomies();
+
+		flush_rewrite_rules();
+
 	}
 
 }

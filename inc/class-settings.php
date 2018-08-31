@@ -81,6 +81,13 @@ class Katalyst_Video_Plus_Settings {
 	 */
 	private function get_registered_settings() {
 		
+		$cron_schedules = wp_get_schedules();
+		
+		foreach( $cron_schedules as $key => $schedule )
+			$cron_schedules[$key] = $schedule['display'];
+		
+		
+		
 		$settings = array(
 			// General Settings
 			'general' => apply_filters( 'kvp_settings_general',
@@ -103,11 +110,51 @@ class Katalyst_Video_Plus_Settings {
 				
 				array(
 					
+					'show_videos_in_main_query' => array(
+						'id'	=> 'show_videos_in_main_query',
+						'name'	=> __( 'Show Video in Blog', 'kvp' ),
+						'desc'	=> __( 'If checked, videos will be included in the blog.', 'kvp' ),
+						'type'	=> 'checkbox'
+					),
+					
 					'show_video_in_lists' => array(
 						'id'	=> 'show_video_in_lists',
 						'name'	=> __( 'Show Video in Archive Lists', 'kvp' ),
 						'desc'	=> __( 'If checked, archive lists will display the video instead of the thumbnail.', 'kvp' ),
 						'type'	=> 'checkbox'
+					),
+					
+					'force_video_into_content' => array(
+						'id'	=> 'force_video_into_content',
+						'name'	=> __( 'Force Video into Content', 'kvp' ),
+						'desc'	=> __( 'If checked, videos will appear at the beginning of content.', 'kvp' ),
+						'type'	=> 'checkbox'
+					),
+					
+					'video_display_header' => array(
+						'id'	=> 'video_display_header',
+						'name'	=> __( 'Video Display', 'kvp' ),
+						'type'	=> 'header',
+					),
+
+					'display_width' => array(
+						'id'	=> 'display_width',
+						'name'	=> __( 'Display Width', 'kvp' ),
+						'desc'	=> __( 'Set the video width.', 'kvp' ),
+						'type'	=> 'select',
+						'options' => apply_filters( 'kvp_display_width', array(
+								'automatic'		=> __( 'Automatic', 'kvp' ),
+							)
+						),
+						'std'	=> 'automatic',
+					),
+					
+					'custom_display_width' => array(
+						'id'	=> 'custom_display_width',
+						'name'	=> __( 'Custom Display Width', 'kvp' ),
+						'desc'	=> __( 'Enter video width in px to override theme settings. Leave blank to use dropdown.', 'kvp' ),
+						'type'	=> 'text',
+						'size'	=> 'small',
 					),
 					
 				)
@@ -119,50 +166,45 @@ class Katalyst_Video_Plus_Settings {
 				
 				array(
 					
-					'perge_log' => array(
-						'id'	=> 'import_post_format',
-						'name'	=> __( 'Perge Log', 'kvp' ),
+					'audit_schedule' => array(
+						'id'	=> 'audit_schedule',
+						'name'	=> __( 'Audit Schedule', 'kvp' ),
+						'desc'	=> __( 'Sets the recurrance schedule for the full audit. <strong>Note: Force an audit from the KVP dashboard to flush the old setting.</strong>', 'kvp' ),
+						'type'	=> 'select',
+						'options' => apply_filters( 'kvp_audit_schedules', $cron_schedules ),
+						'std'	=> 'daily',
+					),
+					
+					'purge_log' => array(
+						'id'	=> 'purge_log',
+						'name'	=> __( 'Purge Log', 'kvp' ),
 						'desc'	=> __( 'Automatically perges log enteries older than setting.', 'kvp' ),
 						'type'	=> 'select',
-						'options' => apply_filters('kvp_import_post_formats', array(
+						'options' => apply_filters( 'kvp_import_post_formats', array(
+								'1'		=> __( 'Daily', 'kvp' ),
 								'30'	=> __( '30 Days', 'kvp' ),
-								'90'	=> __( '90 Days', 'kvp' ),
-								'false'	=> __( 'Never', 'kvp' ),
+								'60'	=> __( '60 Days', 'kvp' ),
 							)
 						),
 						'std'	=> 'false',
 					),
-					/*
-					'import_post_format' => array(
-						'id'	=> 'import_post_format',
-						'name'	=> __( 'Import Post Format', 'kvp' ),
-						'desc'	=> __( 'Changing this option will change the post format on newly imported or audited posts.', 'kvp' ),
-						'type'	=> 'select',
-						'options' => apply_filters('kvp_import_post_formats', array(
-								'standard'	=> 'Standard',
-								'video'		=> 'Video',
-								
-							)
-						),
-					),
-					*/
 					
 				)
 				
 			),
 			
 			//Extension Settings
-			'extensions' => apply_filters('kvp_settings_extensions',
+			'extensions' => apply_filters( 'kvp_settings_extensions',
 				array()
 			),
 			
 			//License Settings
-			'licenses' => apply_filters('kvp_settings_licenses',
+			'licenses' => apply_filters( 'kvp_settings_licenses',
 				array()
 			),
 			
 			//Misc Settings
-			'misc' => apply_filters('kvp_settings_misc',
+			'misc' => apply_filters( 'kvp_settings_misc',
 				array()
 			),
 			
@@ -232,7 +274,7 @@ class Katalyst_Video_Plus_Settings {
 		// Merge our new settings with the existing
 		$output = array_merge( $this->options, $output );
 	
-		add_settings_error( 'kvp-notices', '', __( 'Settings Updated', 'kvp' ), 'updated' );
+		add_settings_error( 'kvp-settings-notices', '', __( 'Settings Updated', 'kvp' ), 'updated' );
 	
 		return $output;
 		
@@ -245,7 +287,7 @@ class Katalyst_Video_Plus_Settings {
 	 */
 	public function header_callback( $args ) {
 		
-		echo '';
+		echo '<hr />';
 		
 	}
 	

@@ -25,8 +25,8 @@ class KVP_Action_Log_Table extends WP_List_Table {
         ) );
         
 		$this->services = apply_filters( 'kvp_services', array() );
-        $this->accounts	= get_option( 'kvp_accounts', array() );
-        $this->items	= get_option( 'kvp_action_log', array() );
+        $this->sources	= get_option( 'kvp_sources', array() );
+        $this->items	= get_option( 'kvp_activity_log', array() );
 		
 	}
 	
@@ -39,8 +39,8 @@ class KVP_Action_Log_Table extends WP_List_Table {
 	public function get_columns() {
 		
 		$columns = array(
-            'title'		=> __( 'Title', 'kvp' ),
-            'message'	=> __( 'Message', 'kvp' ),
+            'action'	=> __( 'Action', 'kvp' ),
+            'args'		=> __( 'Message', 'kvp' ),
             'type'		=> __( 'Type', 'kvp' ),
             'date'		=> __( 'Date', 'kvp' ),
         );
@@ -70,7 +70,7 @@ class KVP_Action_Log_Table extends WP_List_Table {
 	protected function get_sortable_columns() {
         
         $sortable_columns = array(
-            'title'		=> array( 'username', false ),     //true means it's already sorted
+            'action'	=> array( 'username', false ),     //true means it's already sorted
             'type'		=> array( 'type', false ),
             'date'		=> array( 'date', true ),
         );
@@ -97,10 +97,12 @@ class KVP_Action_Log_Table extends WP_List_Table {
     protected function column_default( $item, $column_name ) {
 		
         switch( $column_name ) {
-            case 'title':
-            case 'message':
+            case 'action':
             case 'type':
                 return $item[$column_name];
+            
+            case 'args':
+            	return $this->render_args( $item );
 			
             case 'date':
             	return date_i18n( get_option('date_format') . ' ' . get_option('time_format' ), $item[$column_name] );
@@ -110,6 +112,49 @@ class KVP_Action_Log_Table extends WP_List_Table {
                 return print_r( $item, true );
         }
 
+    }
+    
+    private function render_args( $item ) {
+    	
+    	if( isset($item['args']['source_id']) ) {
+    		$sources = get_option( 'kvp_sources', array() );
+    		$source	 = ( isset($sources[$item['args']['source_id']]) ) ? $sources[$item['args']['source_id']] : array( $item['args']['source_id'] => __( 'Unknown Source', 'kvp' ) );
+    	}
+    	
+    	switch( $item['type'] ) {
+    		
+    		case 'audit':
+    		
+    			$author	= ( isset($item['args']['exec_author']) ) ? get_the_author_meta( 'display_name', $item['args']['exec_author'] ) : __( 'Automated CRON', 'kvp' );
+    			
+    			$content  = '<div>';
+    			$content .= sprintf( '<div>' . __( '%s Audited | %s Duplicates | %s Deleted', 'kvp' ) . '</div>', $item['args']['total'], $item['args']['duplicates'], $item['args']['deleted'] );
+    			$content .= sprintf( '<div>' . __( '%s executed by %s in %ss', 'kvp' ) . '</div>', __( 'Audit', 'kvp' ), $author, round( $item['args']['end_time'] - $item['args']['start_time'], 4 ) );
+    			$content .= '</div>';
+    			
+    			return $content;
+    		
+    		case 'automatic':
+    		
+    			$author	= ( isset($item['args']['exec_author']) ) ? get_the_author_meta( 'display_name', $item['args']['exec_author'] ) : __( 'Automated CRON', 'kvp' );
+    			$name	= ( isset($source['name']) ) ? $source['name'] : __( 'Removed Source', 'kvp' );
+    			
+    			$content  = '<div>';
+    			$content .= sprintf( '<div>' . __( '%s New / %s Videos | %s Duplicates', 'kvp' ) . '</div>', ( $item['args']['total'] - $item['args']['duplicates'] ), $item['args']['total'], $item['args']['duplicates'] );
+    			$content .= sprintf( '<div>' . __( '%s executed by %s in %ss', 'kvp' ) . '</div>', $name, $author, round( $item['args']['end_time'] - $item['args']['start_time'], 4 ) );
+    			$content .= '</div>';
+    			
+    			return $content;
+    		
+    		case 'notice':
+    		case 'warning':
+    		case 'error':
+    			return $item['args']['message'];
+    		
+    		default:
+    			return print_r( $item['args'], true );
+    	}
+    	
     }
 	
 	/**

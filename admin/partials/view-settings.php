@@ -13,15 +13,17 @@
 if ( !current_user_can('manage_options') )
     wp_die('You do not have sufficient permissions to access this page.');
 
+$admin_notices = get_settings_errors( 'kvp-settings-notices' );
+
 $tabs['general'] = __( 'General', 'kvp' );
 $tabs['display'] = __( 'Display', 'kvp' );
 $tabs['import']	 = __( 'Audit & Import', 'kvp' );
 
-if( false == apply_filters( 'kvp_settings_extensions', array() ) ) {
+if( false != apply_filters( 'kvp_settings_extensions', array() ) ) {
 	$tabs['extensions'] = __( 'Extensions', 'kvp' );
 }
 
-if( false == apply_filters( 'kvp_settings_licenses', array() ) ) {
+if( false != apply_filters( 'kvp_settings_licenses', array() ) ) {
 	$tabs['licenses'] = __( 'Licenses', 'edd' );
 }
 
@@ -31,6 +33,13 @@ $active_tab = isset( $_GET[ 'tab' ] ) && array_key_exists( $_GET['tab'], $tabs )
 ?>
 <div class="wrap">
 	<h2><?php _e('KVP Settings', 'kvp'); ?></h2>
+	<?php if( !empty($admin_notices) ) : ?>
+		<?php foreach( $admin_notices as $notice ) : ?>
+	<div class="<?php echo $notice['type']; ?>">
+		<p><?php echo $notice['message']; ?></p>
+    </div>
+    	<?php endforeach; ?>
+    <?php endif; ?>
 	<h2 class="nav-tab-wrapper">
 		<?php
 		foreach( $tabs as $tab_id => $tab_name ) {
