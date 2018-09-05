@@ -1,10 +1,10 @@
 === Katalyst Video Plus ===
 Contributors: Keiser Media
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=billing@katalystvideoplus.com&item_name=Donation+for+Katalyst+Video+Plus
-Tags: import, audit, youtube, thumbnail, twitch, vimeo, ustream, 
+Tags: import, audit, youtube, thumbnail, twitch, vimeo, ustream,
 Requires at least: 3.4.0
-Tested up to: 4.3
-Stable tag: 3.2.1
+Tested up to: 4.9.8
+Stable tag: 3.2.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -51,6 +51,10 @@ The 'Total Videos' statistic is returned from YouTube; however, this statistic m
 8. Settings
 
 == Changelog ==
+
+= 3.2.2 ( Sept. 5, 2018 )
+* [Improved] Create error notice of "pageInfo" variable not found (Issue #2)
+* [Changed] Fatal errors caused by "continue" not in loop changed to "return". (Issue #1)
 
 = 3.2.1 ( Sept. 8, 2015 ) =
 * [Fixed] Video category taxonomy priority. (Issue #28)
