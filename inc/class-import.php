@@ -408,17 +408,25 @@ class Katalyst_Video_Plus_Import {
 		if( $upload['error'] )
 			return kvp_activity_log( __( 'Import File Error', 'kvp' ), __( 'Core Import', 'kvp' ), $upload['error'] );
 
-		$headers = wp_get_http( $url, $upload['file'] );
+		$remote_response = wp_safe_remote_get( $url, array(
+			'timeout' => 300,
+			'stream' => true,
+			'filename' => $upload['file'],
+		) );
+
+		$headers = wp_remote_retrieve_headers( $remote_response );
 
 		if( !$headers ) {
 			@unlink( $upload['file'] );
 			return kvp_activity_log( __( 'Import File Error', 'kvp' ), __( 'Core Import', 'kvp' ), __( 'Remote server did not respond.', 'kvp' ) );
 		}
 
-		if( '200' != $headers['response'] ) {
+		$remote_response_code = wp_remote_retrieve_response_code( $remote_response );
+
+		if( '200' != $remote_response_code ) {
 
 			@unlink( $upload['file'] );
-			return kvp_activity_log( __( 'Import File Error', 'kvp' ), __( 'Core Import', 'kvp' ), sprintf( __('Remote server returned error response %d %s.', 'kvp'), esc_html($headers['response']), get_status_header_desc($headers['response']) ) );
+			return kvp_activity_log( __( 'Import File Error', 'kvp' ), __( 'Core Import', 'kvp' ), sprintf( __('Remote server returned error response %d %s.', 'kvp'), esc_html($remote_response_code), get_status_header_desc($remote_response_code) ). print_r($headers, true) );
 
 		}
 
