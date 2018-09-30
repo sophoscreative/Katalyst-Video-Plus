@@ -16,18 +16,22 @@ if ( !current_user_can('import') )
 $action_log = new KVP_Action_Log_Table();
 ?>
 <div class="wrap">
-	<h2><?php _e('Activity Log', 'kvp'); ?>
+	<h1 class="wp-heading-inline">
+		<?php _e('Activity Log', 'kvp'); ?>
+	</h1>
+	<a href="<?php echo admin_url('edit.php?post_type=kvp_video&page=kvp-activity-log&purge=manual'); ?>" class="page-title-action"><?php _e('Purge Log', 'kvp'); ?></a>
+	<hr class="wp-header-end" />
 	<div id="katalyst-admin-general" class="metabox-holder">
-	    <div id="post-body">
-	        <div id="post-body-content">
-	        	<form method="post">
-	        	<?php
+		<div id="post-body">
+			<div id="post-body-content">
+				<form method="post">
+					<?php
 	        		settings_fields('kvp');
 	        		$action_log->prepare_items();
 	        		$action_log->display();
 	        	?>
 				</form>
-	        </div>
-	    </div>
+			</div>
+		</div>
 	</div>
 </div>
