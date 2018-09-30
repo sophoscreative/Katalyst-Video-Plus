@@ -175,7 +175,7 @@ class KVP_YouTube_Basic_Service extends Katalyst_Video_Plus_Service {
 			'height'  	=> 315,
 		), $atts ) );
 
-		return '<iframe id="kvp-player-' . $video_id . '" type="text/html" width="' . $width . '" height="' . $height . '" src="http://www.youtube.com/embed/' . $video_id . '?origin=' . get_site_url() . '" frameborder="0"></iframe>';
+		return '<iframe id="kvp-player-' . $video_id . '" type="text/html" width="' . $width . '" height="' . $height . '" src="http://www.youtube.com/embed/' . $video_id . '?origin=' . get_site_url() . '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
 
 	}
 
