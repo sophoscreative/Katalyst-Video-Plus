@@ -52,7 +52,10 @@ The 'Total Videos' statistic is returned from YouTube; however, this statistic m
 
 == Changelog ==
 
-= 3.2.2 ( Sept. 5, 2018 )
+= 3.3.0 ( Oct. , 2018 ) =
+* [Fixed] Misspelled variable (Issue #2)
+
+= 3.2.2 ( Sept. 5, 2018 ) =
 * [Improved] Create error notice of "pageInfo" variable not found (Issue #2)
 * [Changed] Fatal errors caused by "continue" not in loop changed to "return". (Issue #1)
 

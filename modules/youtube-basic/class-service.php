@@ -64,7 +64,7 @@ class KVP_YouTube_Basic_Service extends Katalyst_Video_Plus_Service {
 		$service = new KVP_YouTube_Basic_Client( $source );
 		$response = $service->request( 'channels', $query );
 
-		if( is_wp_error($response) || !isset($reponse[pageInfo]) )
+		if( is_wp_error($response) || !isset($response[pageInfo]) )
 			return $source;
 
 		if( count($source['items']) == $response['pageInfo']['totalResults'] )
