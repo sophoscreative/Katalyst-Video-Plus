@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=billing@
 Tags: import, audit, youtube, thumbnail, twitch, vimeo, ustream,
 Requires at least: 3.4.0
 Tested up to: 4.9.8
-Stable tag: 3.2.2
+Stable tag: 3.2.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -52,8 +52,11 @@ The 'Total Videos' statistic is returned from YouTube; however, this statistic m
 
 == Changelog ==
 
-= 3.3.0 ( Oct. , 2018 ) =
-* [Fixed] Misspelled variable (Issue #2)
+= 3.2.3 ( Oct. 2, 2018 ) =
+* [Added] Activity Log Manual Purge and Style Update (Issue #5)
+* [Fixed] Embedded YouTube videos now show fullscreen (Issue #8)
+* [Fixed] Misspelled variable and missing quotes (Issue #2)
+* [Fixed] Deprecated Function: WP_HTTP (Issue #7)
 
 = 3.2.2 ( Sept. 5, 2018 ) =
 * [Improved] Create error notice of "pageInfo" variable not found (Issue #2)
