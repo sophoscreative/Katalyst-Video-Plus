@@ -5,18 +5,20 @@
 * @package          Katalyst_Video_Plus
 *
 * @wordpress-plugin
-* Plugin Name:      Katalyst Video Plus
-* Plugin URI:       http://katalystvideoplus.com/
-* Description:      Create a multiple source video network with WordPress.
-* Version:          3.2.3
-* Author:           Keiser Media Group
-* Author URI:       http://keisermedia.com/
-* License:          GPL-2.0+
-* License URI:      http://www.gnu.org/licenses/gpl-2.0.txt
-* Text Domain:      katalyst-video-plus
-* Domain Path:      /lang
+* Plugin Name:      	Katalyst Video Plus
+* Plugin URI:       	https://sophoscreative.com/projects/katalyst-video-plus/
+* Description:      	Create a multiple source video network with WordPress.
+* Version:          	3.3.0
+* Requires at least: 	5.9
+* Requires PHP: 		8.0
+* Author:           	Sophos Creative LLC
+* Author URI:       	https://sophoscreative.com/
+* License:          	GPL-2.0+
+* License URI:      	http://www.gnu.org/licenses/gpl-2.0.txt
+* Text Domain:      	katalyst-video-plus
+* Domain Path:      	/lang
 *
-*	Copyright 2013  keisermedia.com  (email: support@keisermedia.com)
+*	Copyright 2023  sophoscreative.com  (email: support@sophoscreative.com)
 *
 *	This program is free software: you can redistribute it and/or modify
 *   it under the terms of the GNU General Public License as published by
@@ -47,7 +49,7 @@ register_deactivation_hook( __FILE__, array( 'Katalyst_Video_Plus_Deactivator', 
  */
 function run_katalyst_video_plus () {
 
-	$katalyst_video_plus = new Katalyst_Video_Plus( 'Katalyst Video Plus', '3.2.3', '4.7.0' );
+	$katalyst_video_plus = new Katalyst_Video_Plus( 'Katalyst Video Plus', '3.3.0', '5.9.0' );
 	$katalyst_video_plus->run();
 
 }

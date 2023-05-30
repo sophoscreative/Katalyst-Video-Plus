@@ -31,7 +31,7 @@
 	<textarea id="items" name="new_source[items]" class="widefat" cols="50" rows="5"></textarea>
 	<p class="howto"><?php _e( 'Separate multiple items with a comma.', 'kvp' ); ?></p>
 	<p><strong><?php _e( 'Author', 'kvp'); ?></strong></p>
-	<?php wp_dropdown_users( array( 'name' => 'new_source[author]', 'who' => 'authors', ) ); ?>
+	<?php wp_dropdown_users( array( 'name' => 'new_source[author]', 'capability' => 'edit_posts', ) ); ?>
 	<p class="howto"><?php _e( 'Posts from this source will be published under this author.', 'kvp' ); ?></p>
 	<p><strong><?php _e( 'Categories', 'kvp'); ?></strong></p>
 	<?php post_categories_meta_box( get_default_post_to_edit( 'kvp_video' ), $category_args ); ?>

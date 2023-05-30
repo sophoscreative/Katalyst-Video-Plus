@@ -1,12 +1,12 @@
 === Katalyst Video Plus ===
-Contributors: Keiser Media
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=billing@katalystvideoplus.com&item_name=Donation+for+Katalyst+Video+Plus
-Tags: import, audit, youtube, thumbnail, twitch, vimeo, ustream,
-Requires at least: 3.4.0
-Tested up to: 4.9.8
+Contributors: Sophos Creative
+Tags: import, audit, youtube, thumbnail,
+Requires at least: 5.9.0
+Tested up to: 6.2.2
 Stable tag: 3.2.3
-License: GPLv3 or later
-License URI: http://www.gnu.org/licenses/gpl-3.0.html
+Requires PHP: 8.0
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Katalyst Video Plus is a powerful plugin that automatically creates video posts and syncs content from video hosting services.
 
@@ -14,14 +14,6 @@ Katalyst Video Plus is a powerful plugin that automatically creates video posts 
 
 Katalyst Video Plus enables automatic content syncing between a video content or streaming services and WordPress. Add a source, like a playlist from YouTube, and KVP will automatically create posts for that source.
 
-= Extensions =
-Katalyst Video Plus has free and premium extensions to expand functionality. All officially approved extensions can be found in the [Katalyst Videos Plus Add-ons](http://katalystvideoplus.com/extensions/ "Katalyst Videos Plus Add-ons") section.
-
-= Who is using Katalyst Video Plus? =
-Take a look at some of the best sites in the [Katalyst Video Plus Showcase](http://katalystvideoplus.com/showcase/ "Katalyst Video Plus Showcase").
-
-= More Information =
-Visit the Katalyst Video Plus website for more information on [Katalyst Videos Plus](http://katalystvideoplus.com/ "Katalyst Videos Plus").
 
 == Installation ==
 
@@ -51,6 +43,12 @@ The 'Total Videos' statistic is returned from YouTube; however, this statistic m
 8. Settings
 
 == Changelog ==
+
+=3.3.0 ( May 23, 2023 ) =
+* [Fixed] Source inline edit styling
+* [Fixed] WP_User_Query deprecated argument `who` changed to `capability` and argument value changed to `edit_posts`
+* [Fixed] PHP Deprecated: Optional parameter declared before required parameter in Class Service video_embed
+* [Fixed] PHP Deprecated: Optional parameter declared before required parameter in kvp_activity_log
 
 = 3.2.3 ( Oct. 2, 2018 ) =
 * [Added] Activity Log Manual Purge and Style Update (Issue #5)

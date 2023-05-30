@@ -14,7 +14,7 @@
 * 
 * @since 3.0.0
 */
-function kvp_activity_log( $action = '', $type, $args = array() ) {
+function kvp_activity_log( ?A $action, $type, $args = array() ) {
 	
 	$args  = ( !is_array($args) ) ? array( 'message' => $args ) : $args;
 	

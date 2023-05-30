@@ -72,6 +72,6 @@ abstract class Katalyst_Video_Plus_Service {
 	 * 
 	 * @since 2.0.0
 	 */
-	abstract public function video_embed( $content = null, $atts );
+	abstract public function video_embed(?A $content, $atts );
 	
 }
